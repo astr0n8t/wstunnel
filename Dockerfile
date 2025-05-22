@@ -43,13 +43,6 @@ RUN cargo build --tests --all-features
 #RUN cargo build --release --all-features
 
 
-############################################################
-# Builder for production image
-FROM ${BUILDER_IMAGE} AS builder_release
-
-WORKDIR /build
-COPY . ./
-
 ARG BIN_TARGET=--bins
 ARG PROFILE=release
 
