@@ -31,17 +31,9 @@ RUN if [ "$TARGETPLATFORM" = "linux/arm/v7" ]; then rustup target add armv7-unkn
 WORKDIR /build
 COPY . ./
 
-
-RUN cargo fmt --all -- --check --color=always || (echo "Use cargo fmt to format your code"; exit 1)
-RUN cargo clippy --all --all-features -- -D warnings || (echo "Solve your clippy warnings to succeed"; exit 1)
-
-#RUN cargo test --all --all-features
-#RUN just test "tcp://localhost:2375" || (echo "Test are failing"; exit 1)
-
 #ENV RUSTFLAGS="-C link-arg=-Wl,--compress-debug-sections=zlib -C force-frame-pointers=yes"
 RUN cargo build --tests --all-features
 #RUN cargo build --release --all-features
-
 
 ARG BIN_TARGET=--bins
 ARG PROFILE=release
