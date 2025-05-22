@@ -38,9 +38,6 @@ RUN cargo build --tests --all-features
 ARG BIN_TARGET=--bins
 ARG PROFILE=release
 
-#ENV RUSTFLAGS="-C link-arg=-Wl,--compress-debug-sections=zlib -C force-frame-pointers=yes"
-RUN cargo build --package=wstunnel-cli --features=jemalloc --profile=${PROFILE} ${BIN_TARGET}
-
 # Translate docker platforms to rust platforms
 RUN if [ "$TARGETPLATFORM" = "linux/amd64" ]; then \
         cargo build --release --target x86_64-unknown-linux-gnu --package=wstunnel-cli --features=jemalloc --profile=${PROFILE} ${BIN_TARGET}; \
