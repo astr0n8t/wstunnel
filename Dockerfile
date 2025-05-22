@@ -40,22 +40,22 @@ ARG PROFILE=release
 
 # Translate docker platforms to rust platforms
 RUN if [ "$TARGETPLATFORM" = "linux/amd64" ]; then \
-        cargo build --release --target x86_64-unknown-linux-gnu --package=wstunnel-cli --features=jemalloc --profile=${PROFILE} ${BIN_TARGET}; \
+        cargo build --target x86_64-unknown-linux-gnu --package=wstunnel-cli --features=jemalloc --profile=${PROFILE} ${BIN_TARGET}; \
         cp /build/target/x86_64-unknown-linux-gnu/release/wstunnel /build/wstunnel; \
  fi
 
 RUN if [ "$TARGETPLATFORM" = "linux/arm64" ]; then \
-        cargo build --release --target aarch64-unknown-linux-gnu --package=wstunnel-cli --features=jemalloc --profile=${PROFILE} ${BIN_TARGET}; \
+        cargo build --target aarch64-unknown-linux-gnu --package=wstunnel-cli --features=jemalloc --profile=${PROFILE} ${BIN_TARGET}; \
         cp /build/target/aarch64-unknown-linux-gnu/release/wstunnel /build/wstunnel; \
  fi
 
 RUN if [ "$TARGETPLATFORM" = "linux/arm/v7" ]; then \
-        cargo build --release --target armv7-unknown-linux-gnueabi --package=wstunnel-cli --features=jemalloc --profile=${PROFILE} ${BIN_TARGET}; \
+        cargo build --target armv7-unknown-linux-gnueabi --package=wstunnel-cli --features=jemalloc --profile=${PROFILE} ${BIN_TARGET}; \
         cp /build/target/armv7-unknown-linux-gnueabi/release/wstunnel /build/wstunnel; \
  fi
 
 RUN if [ "$TARGETPLATFORM" = "linux/arm" ]; then \
-        cargo build --release --target arm-unknown-linux-gnueabi --package=wstunnel-cli --features=jemalloc --profile=${PROFILE} ${BIN_TARGET}; \
+        cargo build --target arm-unknown-linux-gnueabi --package=wstunnel-cli --features=jemalloc --profile=${PROFILE} ${BIN_TARGET}; \
         cp /build/target/arm-unknown-linux-gnueabi/release/wstunnel /build/wstunnel; \
  fi
 
