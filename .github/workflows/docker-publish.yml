@@ -86,7 +86,7 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
-          platforms: linux/arm, linux/arm64, linux/amd64
+          platforms: linux/amd64
           build-args: |
             BUILDPLATFORM=linux/amd64
 
