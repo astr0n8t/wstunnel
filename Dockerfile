@@ -1,14 +1,14 @@
 # Build Stage
 ARG BUILDPLATFORM
-FROM --platform=${BUILDPLATFORM} rust:latest as rust-source
-FROM --platform=${BUILDPLATFORM} ghcr.io/cross-rs/x86_64-unknown-linux-gnu:latest as build_amd64
-#FROM --platform=${BUILDPLATFORM} ghcr.io/cross-rs/aarch64-unknown-linux-gnu:latest as build_arm64
-#FROM --platform=${BUILDPLATFORM} ghcr.io/cross-rs/armv7-unknown-linux-gnueabi:latest as build_armv7
-#FROM --platform=${BUILDPLATFORM} ghcr.io/cross-rs/arm-unknown-linux-gnueabi:latest as build_arm
+FROM --platform=${BUILDPLATFORM} rust:latest AS rust-source
+FROM --platform=${BUILDPLATFORM} ghcr.io/cross-rs/x86_64-unknown-linux-gnu:latest AS build_amd64
+FROM --platform=${BUILDPLATFORM} ghcr.io/cross-rs/aarch64-unknown-linux-gnu:latest AS build_arm64
+FROM --platform=${BUILDPLATFORM} ghcr.io/cross-rs/armv7-unknown-linux-gnueabi:latest AS build_armv7
+FROM --platform=${BUILDPLATFORM} ghcr.io/cross-rs/arm-unknown-linux-gnueabi:latest AS build_arm
 
 ARG TARGETARCH
 ARG TARGETVARIANT
-FROM --platform=${BUILDPLATFORM} build_${TARGETARCH}${TARGETVARIANT} as builder
+FROM --platform=${BUILDPLATFORM} build_${TARGETARCH}${TARGETVARIANT} AS builder
 
 COPY --from=rust-source /usr/local/rustup /usr/local
 COPY --from=rust-source /usr/local/cargo /usr/local
@@ -60,7 +60,7 @@ RUN if [ "$TARGETPLATFORM" = "linux/arm" ]; then \
  fi
 
 # second stage.
-FROM gcr.io/distroless/cc-debian12 as build-release-stage
+FROM gcr.io/distroless/cc-debian12 AS build-release-stage
 
 ENV RUST_LOG=info
 
